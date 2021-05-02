@@ -1,0 +1,120 @@
+cloudgps (0.5.6) unstable; urgency=low
+
+  * Fixed (hopefully) package dependencies.
+  
+ -- Damian Waradzyn <damian.waradzyn@gmail.com>  Fri, 10 Jun 2011 00:00:00 -0000
+
+cloudgps (0.5.5) unstable; urgency=low
+
+  * Route calculation using CloudMade and Google Maps (press R to cycle): press and hold on map to invoke popup menu, select Directions from/to here. You can also tap and drag route start or end and route will be recalculated.
+  
+  * Turn by turn instructions are displayed on locations near route (within 30 meters). Distance to next turn by turn direction is calculated as well as distance to route destination (this one is not accurate due to some bug).
+  
+  * Route is rendered with rounded lines. Line thickness is calculated automatically based on current zoom level.
+  
+  * Last calculated route is stored locally and reloaded (without using network) on next startup.
+  
+  * Route overview flyby – camera will follow route drom start to end. Press D to activate.
+  
+  * Off-line mode (press Z to toggle).
+  
+  * Added UNICODE to ASCII conversion on every string returned from search and routing providers.
+  
+ -- Damian Waradzyn <damian.waradzyn@gmail.com>  Sun, 31 Jul 2011 00:00:00 -0000
+
+cloudgps (0.4.8) unstable; urgency=low
+
+  * Fixed loading previously used map provider.
+  
+ -- Damian Waradzyn <damian.waradzyn@gmail.com>  Fri, 10 Jun 2011 00:00:00 -0000
+
+cloudgps (0.4.7) unstable; urgency=low
+
+  * Added two search providers: Google Maps and Google Maps Local
+
+  * Added debug network messages option (curlVerbose in cloudgps.ini).
+  
+ -- Damian Waradzyn <damian.waradzyn@gmail.com>  Thu, 9 Jun 2011 00:00:00 -0000
+
+cloudgps (0.4.6) unstable; urgency=low
+
+  * Added support for Google map search (press S to switch between CloudMade and Google).
+  
+  * Search is now done in background - not blocking rest of UI.
+
+ -- Damian Waradzyn <damian.waradzyn@gmail.com>  Sun,  5 Jun 2011 00:00:00 -0000
+
+cloudgps (0.4.5) unstable; urgency=low
+
+  * Uploading the same version with bugtracker link in debian/control.
+
+ -- Damian Waradzyn <damian.waradzyn@gmail.com>  Tue,  31 May 2011 00:00:00 -0000
+
+cloudgps (0.4.4) unstable; urgency=low
+
+  * Implemented flyby to target location using intermediate zoom levels.
+  
+  * Added close and task manager buttons in landscape view.
+  
+  * Added support for markers (only one marker now - search result) - almost complete in 2D, not working in 3D.
+  
+  * Added search feature - still incomplete and only CloudMade. 
+  
+  * Added arrow indicating direction to current gps position (if outside screen).
+  
+  * Distance from screen center to gps position (press C).
+  
+  * Better usage of tiles from other zoom levels.
+  
+  * More tile providers by default.
+  
+ -- Damian Waradzyn <damian.waradzyn@gmail.com>  Sun,  29 May 2011 00:00:00 -0000
+
+cloudgps (0.3.11) unstable; urgency=low
+
+  * Fixed random crashes and optimized tile loading times (4x faster).
+
+ -- Damian Waradzyn <damian.waradzyn@gmail.com>  Sun,  28 Nov 2010 00:00:00 -0000
+
+cloudgps (0.3.10) unstable; urgency=low
+
+  * Reuploading the same version because previous would not install from extras-devel.
+
+ -- Damian Waradzyn <damian.waradzyn@gmail.com>  Thu,  12 Nov 2010 00:00:00 -0000
+
+cloudgps (0.3.9) unstable; urgency=low
+
+  * Fixed following GPS position and direction.
+  
+  * Instant zooming and zoombar.
+  
+  * Experimental and partial support for 3D buildings.
+  
+  * Compass icon and 2D rotation mode.
+  
+ -- Damian Waradzyn <damian.waradzyn@gmail.com>  Thu,  12 Nov 2010 00:00:00 -0000
+  
+cloudgps (0.2.9) unstable; urgency=low
+
+  * Portrait mode, memory management, partial support for config files. Unstable release.
+
+ -- Damian Waradzyn <damian.waradzyn@gmail.com>  Tue,  10 Aug 2010 00:00:00 -0000
+
+cloudgps (0.2.1) unstable; urgency=low
+
+  * Small bugfix for up arrow.
+
+ -- Damian Waradzyn <damian.waradzyn@gmail.com>  Thu,  24 Jul 2010 00:00:00 -0000
+
+cloudgps (0.2) unstable; urgency=low
+
+  * Partial 3D and accelerometer support added.
+
+ -- Damian Waradzyn <damian.waradzyn@gmail.com>  Thu,  24 Jul 2010 00:00:00 -0000
+
+cloudgps (0.1) unstable; urgency=low
+
+  * Initial release
+
+ -- Damian Waradzyn <damian.waradzyn@gmail.com>  Thu,  7 Jul 2010 00:00:00 -0000
+

@@ -1,0 +1,58 @@
+Source: cloudgps
+Section: user/navigation
+Priority: extra
+Maintainer: Damian Waradzyn <damian.waradzyn@gmail.com>
+Build-Depends: debhelper (>= 5), liblocation-dev, libhal-dev, libgles1-sgx-img-dev, libgconf2-dev, libsdl1.2-dev, libsdl-gles1.2-dev, libsdl-image1.2-dev, libsdl-ttf2.0-dev, json-dev, libc6-dev (>= 2.5.0-1), libcurl3-dev (>= 7.16.2-1)
+Standards-Version: 3.7.2
+
+Package: cloudgps
+Architecture: armel
+Depends: libgles1, ${shlibs:Depends} 
+Description: Smoothest tile maps for N900 with great user experience.
+XSBC-Bugtracker: https://garage.maemo.org/tracker/?group_id=1753  
+XB-Maemo-Icon-26:
+  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

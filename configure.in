@@ -1,0 +1,41 @@
+#                                               -*- Autoconf -*-
+# Process this file with autoconf to produce a configure script.
+
+AC_PREREQ(2.61)
+AC_INIT(cloudgps, 0.1, damian.waradzyn@gmail.com)
+AC_CONFIG_SRCDIR([src/input.c])
+AC_CONFIG_HEADER([src/config.h])
+
+# Checks for programs.
+AC_PROG_CC
+AC_PROG_INSTALL
+
+# Checks for libraries.
+# FIXME: Replace `main' with a function in `-lEGL':
+AC_CHECK_LIB([EGL], [main])
+# FIXME: Replace `main' with a function in `-lGLES_CM':
+AC_CHECK_LIB([GLES_CM], [main])
+# FIXME: Replace `main' with a function in `-lSDL_gles':
+AC_CHECK_LIB([SDL_gles], [main])
+# FIXME: Replace `main' with a function in `-lSDL_image':
+AC_CHECK_LIB([SDL_image], [main])
+# FIXME: Replace `main' with a function in `-lcurl':
+AC_CHECK_LIB([curl], [main])
+# FIXME: Replace `main' with a function in `-lm':
+AC_CHECK_LIB([m], [main])
+
+# Checks for header files.
+AC_HEADER_STDC
+AC_CHECK_HEADERS([memory.h stdlib.h strings.h sys/time.h unistd.h])
+
+# Checks for typedefs, structures, and compiler characteristics.
+AC_C_CONST
+AC_TYPE_SIZE_T
+
+# Checks for library functions.
+AC_FUNC_MALLOC
+AC_FUNC_VPRINTF
+AC_CHECK_FUNCS([memset pow sqrt strdup])
+
+AC_CONFIG_FILES([Makefile])
+AC_OUTPUT

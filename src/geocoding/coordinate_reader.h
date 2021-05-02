@@ -9,8 +9,8 @@
 #define COORDINATE_READER_H_
 
 #include <stdlib.h>
-#include <json/json.h>
-#include <json/json_object_private.h>
+#include <json-c/json.h>
+#include <json-c/json_object_private.h>
 
 #include "../main.h"
 

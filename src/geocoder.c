@@ -13,8 +13,8 @@
 
 #include <stdlib.h>
 #include <stdio.h>
-#include <json/json.h>
-#include <json/json_object_private.h>
+#include <json-c/json.h>
+#include <json-c/json_object_private.h>
 
 #include "tileengine.h"
 #include "console.h"

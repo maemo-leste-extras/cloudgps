@@ -23,6 +23,7 @@ static int oaz = 0;
 static const char *accel_filename = "/sys/class/i2c-adapter/i2c-3/3-001d/coord";
 
 int liqaccel_read(int *ax, int *ay, int *az) {
+    return 0;
     FILE *fd;
     int rs;
     fd = fopen(accel_filename, "r");

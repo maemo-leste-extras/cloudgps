@@ -10,17 +10,23 @@
  *
  * Author: Damian Waradzyn
  */
+#if 0
 #include <hal/libhal.h>
 
 LibHalContext *libHalCtx;
 char* udi;
 DBusError dbusError;
+#endif
 
 void refreshBattery() {
+    batteryPercentage = 42;
+#if 0
     batteryPercentage = libhal_device_get_property_int(libHalCtx, udi, "battery.charge_level.percentage", &dbusError);
+#endif
 }
 
 void initBattery() {
+#if 0
     DBusConnection *conn;
     dbus_error_init(&dbusError);
     conn = dbus_bus_get(DBUS_BUS_SYSTEM, &dbusError);
@@ -51,5 +57,6 @@ void initBattery() {
         dbus_error_free(&dbusError);
     }
     refreshBattery();
+#endif
 }
 

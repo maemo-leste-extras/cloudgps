@@ -2,10 +2,10 @@ APP=cloudgps
 
 CC = gcc
 
-CFLAGS = -g -O2 -DN900 `pkg-config --libs glib-2.0` `pkg-config --cflags --libs hal liblocation sdl` -I/usr/include/glib-2.0 -I/usr/lib/glib-2.0/include -I/usr/include/dbus-1.0 -I/usr/lib/dbus-1.0/include -D_GNU_SOURCE
+CFLAGS = -g -O2 -DN900 `pkg-config --libs glib-2.0` `pkg-config --cflags --libs liblocation sdl` -D_GNU_SOURCE
 PKGCFLAGS = -Wall
 
-LIBS = `pkg-config --libs glib-2.0` `pkg-config --cflags --libs liblocation hal sdl` -lSDL_gles -lGLES_CM -lEGL -lm -lSDL_image -lSDL_ttf -lcurl -ljson
+LIBS = `pkg-config --libs glib-2.0` `pkg-config --cflags --libs liblocation sdl json-c libcurl` -lSDL_gles -lGLESv1_CM -lEGL -lm -lSDL_image -lSDL_ttf -lz
 
 TARGET = cloudgps
 
@@ -32,10 +32,11 @@ clean:
 
 install:
 	@echo You must be root to install
-	install -d $(DESTDIR)/opt/cloudgps/res/
-	install cloudgps $(DESTDIR)/opt/cloudgps/
-	install res/*.png $(DESTDIR)/opt/cloudgps/res/
-	install res/*.ini $(DESTDIR)/opt/cloudgps/
+	install -d $(DESTDIR)/usr/share/cloudgps/res/
+	mkdir $(DESTDIR)/usr/bin/
+	install cloudgps $(DESTDIR)/usr/bin/
+	install res/*.png $(DESTDIR)/usr/share/cloudgps/res/
+	install res/*.ini $(DESTDIR)/usr/share/cloudgps/
 	install -d $(DESTDIR)/usr/share/applications/hildon/
 	install res/*.desktop $(DESTDIR)/usr/share/applications/hildon/
 	for s in 40 26; do \

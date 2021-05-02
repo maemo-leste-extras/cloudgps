@@ -2,11 +2,21 @@ Source: cloudgps
 Section: user/navigation
 Priority: extra
 Maintainer: Damian Waradzyn <damian.waradzyn@gmail.com>
-Build-Depends: debhelper (>= 5), liblocation-dev, libhal-dev, libgles1-sgx-img-dev, libgconf2-dev, libsdl1.2-dev, libsdl-gles1.2-dev, libsdl-image1.2-dev, libsdl-ttf2.0-dev, json-dev, libc6-dev (>= 2.5.0-1), libcurl3-dev (>= 7.16.2-1)
-Standards-Version: 3.7.2
+Build-Depends: debhelper (>= 10),
+    liblocation-dev,
+    libgconf2-dev,
+    libsdl1.2-dev,
+    libsdl-gles1.2-dev,
+    libsdl-image1.2-dev,
+    libsdl-ttf2.0-dev,
+    libjson-c-dev,
+    libc6-dev (>= 2.5.0-1),
+    libcurl4-openssl-dev | libcurl4-nss-dev | libcurl4-gnutls-dev
+Standards-Version: 4.3.0
 
 Package: cloudgps
-Architecture: armel
+Architecture: any
+Multi-Arch: same
 Depends: libgles1, ${shlibs:Depends} 
 Description: Smoothest tile maps for N900 with great user experience.
 XSBC-Bugtracker: https://garage.maemo.org/tracker/?group_id=1753  

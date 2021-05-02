@@ -2,10 +2,10 @@ APP=cloudgps
 
 CC = gcc
 
-CFLAGS = -g -O2 -DN900 `pkg-config --libs glib-2.0` `pkg-config --cflags --libs hal liblocation sdl` -I/usr/include/glib-2.0 -I/usr/lib/glib-2.0/include -I/usr/include/dbus-1.0 -I/usr/lib/dbus-1.0/include -D_GNU_SOURCE
+CFLAGS = -g -O2 -DN900 `pkg-config --libs glib-2.0` `pkg-config --cflags --libs liblocation sdl` -D_GNU_SOURCE
 PKGCFLAGS = -Wall
 
-LIBS = `pkg-config --libs glib-2.0` `pkg-config --cflags --libs liblocation hal sdl` -lSDL_gles -lGLES_CM -lEGL -lm -lSDL_image -lSDL_ttf -lcurl -ljson
+LIBS = `pkg-config --libs glib-2.0` `pkg-config --cflags --libs liblocation sdl json-c libcurl` -lSDL_gles -lGLESv1_CM -lEGL -lm -lSDL_image -lSDL_ttf -lz
 
 TARGET = cloudgps
 

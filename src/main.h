@@ -32,11 +32,12 @@
 #define EARTH_RADIUS 6378137
 
 #ifdef N900
-#define SCREEN_WIDTH  800
+extern int SCREEN_WIDTH;
+extern int SCREEN_HEIGHT;
 #else
 #define SCREEN_WIDTH  854
-#endif
 #define SCREEN_HEIGHT 480
+#endif
 #define TILE_SIZE     256
 #define PORTRAIT_ROTATION_Y 14
 #define LANDSCAPE_ROTATION_X 14

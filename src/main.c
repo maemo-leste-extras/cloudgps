@@ -76,6 +76,9 @@ int texturesCreatedThisFrame = 0;
 int currentTilesIdx;
 GLfloat fps;
 
+int SCREEN_WIDTH = 0;
+int SCREEN_HEIGHT = 0;
+
 void setQuitFlag() {
 	quit = TRUE;
 }

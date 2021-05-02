@@ -1160,8 +1160,11 @@ int initGL(GLvoid) {
 //		exit(2);
 //	}
 
+
 #if defined(N900)
-	surface = SDL_SetVideoMode(SCREEN_WIDTH, SCREEN_HEIGHT, 16, SDL_FULLSCREEN);
+	surface = SDL_SetVideoMode(0, 0, 16, SDL_FULLSCREEN);
+	SCREEN_WIDTH = surface->w;
+	SCREEN_HEIGHT = surface->h;
 #elif defined(N950)
 	fprintf(stderr, "N950 opengl init\n");
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 1);

@@ -11,8 +11,8 @@
  * Author: Damian Waradzyn
  */
 #define USER_CONFIG_FILE "/home/user/.cloudgps/config.ini"
-#define GLOBAL_CONFIG_FILE "/opt/cloudgps/cloudgps.ini"
-#define PROVIDERS_CONFIG_FILE "/opt/cloudgps/providers.ini"
+#define GLOBAL_CONFIG_FILE "/usr/share/cloudgps/cloudgps.ini"
+#define PROVIDERS_CONFIG_FILE "/usr/share/cloudgps/providers.ini"
 
 
 #include "file.h"

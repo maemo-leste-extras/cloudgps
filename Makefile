@@ -32,10 +32,11 @@ clean:
 
 install:
 	@echo You must be root to install
-	install -d $(DESTDIR)/opt/cloudgps/res/
-	install cloudgps $(DESTDIR)/opt/cloudgps/
-	install res/*.png $(DESTDIR)/opt/cloudgps/res/
-	install res/*.ini $(DESTDIR)/opt/cloudgps/
+	install -d $(DESTDIR)/usr/share/cloudgps/res/
+	mkdir $(DESTDIR)/usr/bin/
+	install cloudgps $(DESTDIR)/usr/bin/
+	install res/*.png $(DESTDIR)/usr/share/cloudgps/res/
+	install res/*.ini $(DESTDIR)/usr/share/cloudgps/
 	install -d $(DESTDIR)/usr/share/applications/hildon/
 	install res/*.desktop $(DESTDIR)/usr/share/applications/hildon/
 	for s in 40 26; do \

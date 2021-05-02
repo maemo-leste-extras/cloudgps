@@ -82,7 +82,7 @@ void loadConfig() {
     gchar *tileProvider = NULL;
     gchar *geocodingProvider = NULL;
     gchar *routingProvider = NULL;
-    gchar *ttfFont = NULL;
+    //gchar *ttfFont = NULL;
 
     if (g_key_file_load_from_file(keyfile, GLOBAL_CONFIG_FILE, 0, &error)) {
         options.referer = g_key_file_get_string(keyfile, "Network", "httpReferer", NULL);
@@ -100,7 +100,7 @@ void loadConfig() {
         options.zoomChangeFadeTime = g_key_file_get_integer(keyfile, GROUP_DEFAULTS, "zoomChangeFadeTime", NULL);
         options.locallyLoadedFadeTime = g_key_file_get_integer(keyfile, GROUP_DEFAULTS, "locallyLoadedFadeTime", NULL);
         canvas.rotation2d = g_key_file_get_integer(keyfile, GROUP_DEFAULTS, "rotation2d", NULL);
-        ttfFont = g_key_file_get_string(keyfile, GROUP_DEFAULTS, "ttfFont", NULL);
+        //ttfFont = g_key_file_get_string(keyfile, GROUP_DEFAULTS, "ttfFont", NULL);
         //font=TTF_OpenFont(ttfFont, 16);
 //        if(!font) {
 //            fprintf(stderr, "TTF_OpenFont: %s\n", TTF_GetError());

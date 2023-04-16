@@ -24,7 +24,7 @@ extern GLfloat fps;
 
 GList* uiElems = NULL;
 
-UiElement* pressedUiElem = NULL;
+static UiElement* pressedUiElem = NULL;
 
 UiElement *crosshair, *zoomIn, *zoomOut, *position, *gotomypos, *view2d, *view3d,
           *compass, *search, *zoomKnot, *closeApp, *tasks, *busy;

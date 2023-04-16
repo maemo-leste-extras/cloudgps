@@ -113,7 +113,7 @@ typedef struct {
 	int raiseLevel;
 } ScreenMarker;
 
-struct {
+typedef struct {
     int mipmapToggle;
     int showGrid, showCoordinates, accelerometerEnabled;
     int showDebugTiles;
@@ -136,7 +136,10 @@ struct {
     int snapToRouteToleranceMeters;
     int outsideRouteToleranceMeters;
     int recalculateRouteAfterOutSideRouteSeconds;
-} options;
+} OptionsStruct;
+
+/* Actually defined in main.c */
+extern OptionsStruct options;
 
 //TTF_Font *font = NULL;
 

@@ -32,7 +32,7 @@
 #define DOWNLOADING_THREADS 4
 #endif
 extern Canvas canvas;
-UiElement* pressedUiElem;
+static UiElement* pressedUiElem;
 
 SDL_Thread* downloadThreads[DOWNLOADING_THREADS];
 volatile int downloadThreadBusy[DOWNLOADING_THREADS];

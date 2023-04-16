@@ -49,6 +49,8 @@ LocationGPSDControl *control;
 #include "battery.c"
 #include "navigation/navigation.h"
 
+OptionsStruct options;
+
 Canvas canvas;
 
 struct {

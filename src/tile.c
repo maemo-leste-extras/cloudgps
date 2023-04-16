@@ -15,6 +15,7 @@
 #include <sys/resource.h>
 
 #include "tile.h"
+#include "texture.h"
 #include "main.h"
 
 t_tile* tiles[TILES_X][TILES_Y][2];
@@ -179,8 +180,8 @@ extern SDL_sem* sem;
 
 int downloadThread(void* busyPtr) {
     t_tile* tile = NULL;
-    int priorityStatus = 0;
-    priorityStatus = setpriority(PRIO_PROCESS, 0, 19);
+    //int priorityStatus = 0;
+    //priorityStatus = setpriority(PRIO_PROCESS, 0, 19);
     GQueue* queue = downloadQueue;
 
     int* busy = busyPtr;

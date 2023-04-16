@@ -28,7 +28,7 @@
 #define LINE_ON_SCREEN_MILLIS 4000
 
 typedef struct {
-	char text[CONSOLE_MAX_LINE_LENGHT];
+	char text[CONSOLE_MAX_LINE_LENGHT+1];
 	GLfloat r, g, b;
 	long addedMillis;
 } ConsoleLine;

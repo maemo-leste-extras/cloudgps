@@ -27,13 +27,13 @@ void initRoutingProviders() {
 
 	p -> name = "CloudMade";
 	p -> parseResponse = &cloudmadeRouterParseResponse;
-	p -> prepareUrl = &cloudmadeRouterPrepareUrl;
+	p -> prepareUrl = (prepare_url_t)&cloudmadeRouterPrepareUrl;
 	routingProviders = g_list_append(routingProviders, p);
 
 	p = calloc(1, sizeof(BackgroundQueryProvider));
 	p -> name = "Google";
 	p -> parseResponse = &googleMapsRouterParseResponse;
-	p -> prepareUrl = &googleMapsRouterPrepareUrl;
+	p -> prepareUrl = (prepare_url_t)&googleMapsRouterPrepareUrl;
 	routingProviders = g_list_append(routingProviders, p);
 }
 

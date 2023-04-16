@@ -67,7 +67,7 @@ void google_parse_response(char* response) {
 				json_object * json_result = json_object_array_get_idx(json_results, i);
 				GeoCodeResult * result = calloc(1, sizeof(GeoCodeResult));
 				result -> name = calloc(300, sizeof(char));
-				ascifyAndStripTags((char*) json_object_get_string(json_object_object_get(json_result, KEY_FORMATTED_ADDRESS)), result -> name);
+				ascifyAndStripTags((char*) json_object_get_string(json_object_object_get(json_result, KEY_FORMATTED_ADDRESS)), (char*)result -> name);
 				json_object *geometry = json_object_object_get(json_result, KEY_GEOMETRY);
 
 				readGoogleWorldCoordinate(json_object_object_get(geometry, KEY_LOCATION), &result -> centroid);

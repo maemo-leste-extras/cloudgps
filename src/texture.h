@@ -16,5 +16,6 @@
 
 GLuint createTexture(GLushort * pixels4444, int w, int h, int isTile);
 extern double avgR, avgG, avgB, clearR, clearG, clearB;
+void deleteTexture(GLuint texture);
 
 #endif /* TEXTURE_H_ */

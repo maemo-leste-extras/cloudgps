@@ -60,9 +60,9 @@ void cloudmade_parse_response(char* response) {
 			readCloudmadeWorldCoordinate(json_object_array_get_idx(json_object_object_get(feature, KEY_BOUNDS), 1), &result -> bounds[1]);
 			json_object *properties = json_object_object_get(feature, KEY_PROPERTIES);
 			result -> name = calloc(300, sizeof(char));
-			ascifyAndStripTags((char*) json_object_get_string(json_object_object_get(properties, KEY_NAME)), result -> name);
+			ascifyAndStripTags((char*) json_object_get_string(json_object_object_get(properties, KEY_NAME)), (char*)result -> name);
 			result -> description = calloc(300, sizeof(char));
-			ascifyAndStripTags((char*) json_object_get_string(json_object_object_get(properties, KEY_IS_IN)), result -> description);
+			ascifyAndStripTags((char*) json_object_get_string(json_object_object_get(properties, KEY_IS_IN)), (char*)result -> description);
 			result -> wikipedia = json_object_get_string(json_object_object_get(properties, KEY_WIKIPEDIA));
 
 			//                    fprintf(stderr, "Name: '%s' Description: '%s', center: %f, %f, Wikipedia: '%s'\n", result -> name, result -> description, result -> centroid.latitude, result -> centroid.longitude, result-> wikipedia == NULL ? "null": result -> wikipedia);

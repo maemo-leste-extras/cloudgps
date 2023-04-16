@@ -25,6 +25,7 @@
 #include "routing/router.h"
 #include "markerIterator.h"
 #include "geometry.h"
+#include "buildings3d.h"
 
 #ifdef N900
 #define DOWNLOADING_THREADS 2

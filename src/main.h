@@ -65,6 +65,8 @@ typedef enum {
 	NO_QUERY, QUERY_IN_PROGRESS, DOWNLOAD_ERROR, PARSE_ERROR, ZERO_RESULTS, RESULTS_READY, QUERY_THE_SAME
 } BackgroundQueryStatus;
 
+typedef char*(*prepare_url_t)(void*);
+
 typedef struct {
 	char* name;
 	char* (*prepareUrl)(void* query);
@@ -325,7 +327,7 @@ typedef struct {
 } Accelerometer;
 extern Accelerometer accelerometer;
 
-#define MAX_BUF_SIZE 500
+#define MAX_BUF_SIZE 550
 extern char strbuf[MAX_BUF_SIZE];
 extern char strbuf2[MAX_BUF_SIZE];
 

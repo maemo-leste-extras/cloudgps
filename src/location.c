@@ -33,8 +33,6 @@ int glibMainLoopThread(void *unused) {
 
 void initLocation() {
 #ifdef N900
-	g_type_init();
-
 	control = location_gpsd_control_get_default();
 	if (control) {
 		g_object_set(G_OBJECT(control), "preferred-method", LOCATION_METHOD_USER_SELECTED, NULL);

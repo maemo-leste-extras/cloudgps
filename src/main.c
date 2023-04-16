@@ -29,7 +29,10 @@ LocationGPSDevice *device;
 LocationGPSDControl *control;
 #endif
 
+
 #include "main.h"
+OptionsStruct options;
+
 #include "tile.h"
 #include "network.h"
 #include "texture.h"
@@ -49,7 +52,6 @@ LocationGPSDControl *control;
 #include "battery.c"
 #include "navigation/navigation.h"
 
-OptionsStruct options;
 
 Canvas canvas;
 

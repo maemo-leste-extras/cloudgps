@@ -138,6 +138,7 @@ BackgroundQueryProvider* getNextProvider(GList* allProviders, BackgroundQueryPro
 		}
 		provider = provider -> next;
 	}
+	return NULL;
 }
 
 void addSearchMarkerAtCanvasCenter();

@@ -61,4 +61,7 @@ void canvasCenterToTileCoordinate(TileCoordinate* tc);
 double getDistance(WorldCoordinate* c1, WorldCoordinate* c2);
 GLfloat getMarkerRotation();
 void freePopupMenu();
+
+void tmpQueryRoute();
+void updateBusyValue();
 #endif /* TILEENGINE_H_ */

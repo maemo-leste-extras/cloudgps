@@ -16,6 +16,7 @@
 
 
 #include "file.h"
+#include "main.h"
 
 char *GROUP_DEFAULTS = "Defaults";
 void loadTileProviders() {

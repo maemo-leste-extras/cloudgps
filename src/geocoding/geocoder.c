@@ -29,30 +29,33 @@ GList* geocodingResults;
 
 #define QUERY_TMP_FILENAME "/tmp/cloudgps-query-tmp.js"
 
+char* cloudmade_prepare_url(char* encodedQuery);
+char* (*prepareUrl)(void* query);
+
 void initGeocodingProviders() {
 	BackgroundQueryProvider* p;
 	p = calloc(1, sizeof(BackgroundQueryProvider));
 	p -> name = "CloudMade";
 	p -> parseResponse = &cloudmade_parse_response;
-	p -> prepareUrl = &cloudmade_prepare_url;
+	p -> prepareUrl = (prepare_url_t)&cloudmade_prepare_url;
 	geocodingProviders = g_list_append(geocodingProviders, p);
 
 	p = calloc(1, sizeof(BackgroundQueryProvider));
 	p -> name = "Google (address only)";
 	p -> parseResponse = &google_parse_response;
-	p -> prepareUrl = &google_prepare_url;
+	p -> prepareUrl = (prepare_url_t)&google_prepare_url;
 	geocodingProviders = g_list_append(geocodingProviders, p);
 
 	p = calloc(1, sizeof(BackgroundQueryProvider));
 	p -> name = "Google Maps";
 	p -> parseResponse = &google_maps_parse_response;
-	p -> prepareUrl = &google_maps_prepare_url;
+	p -> prepareUrl = (prepare_url_t)&google_maps_prepare_url;
 	geocodingProviders = g_list_append(geocodingProviders, p);
 
 	p = calloc(1, sizeof(BackgroundQueryProvider));
 	p -> name = "Google Maps Local";
 	p -> parseResponse = &google_maps_parse_response;
-	p -> prepareUrl = &google_maps_local_prepare_url;
+	p -> prepareUrl = (prepare_url_t)&google_maps_local_prepare_url;
 	geocodingProviders = g_list_append(geocodingProviders, p);
 }
 
@@ -118,7 +121,7 @@ void processNewSearchQuery(char* query) {
 		sprintf(strbuf, "Search query: thread busy - try again");
 		addConsoleLine(strbuf, 1, 1, 0);
 	} else {
-		char* copy = malloc(SEARCHBAR_MAX_CHARS);
+		char* copy = malloc(SEARCHBAR_MAX_CHARS+1);
 		strncpy(copy, query, SEARCHBAR_MAX_CHARS);
 		SDL_CreateThread(geocodeBgThread, (void*) copy);
 	}
@@ -147,6 +150,10 @@ void processGeocoding() {
 	    tileEngineProcessSearchResults(geocodingResults);
 		g_list_free(geocodingResults);
 		geocodingResults = NULL;
+		break;
+	/* XXX: Not handled previously, let's just have it here to indicate
+ 	 * default path explicitly */
+	case QUERY_THE_SAME:
 		break;
 	}
 	searchResultsStatus = NO_QUERY;

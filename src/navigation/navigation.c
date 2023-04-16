@@ -87,7 +87,7 @@ void updateNavigation() {
 	if (canvas.route.optimizedRoute.lineStripTileCoordinates != NULL) {
 		int i;
 		double minDistance = INFINITY;
-		double minSnapx, minSnapy;
+		double minSnapx = 0., minSnapy = 0.;
 		int minIdx = -1;
 
 		TileCoordinate currentPosTc;

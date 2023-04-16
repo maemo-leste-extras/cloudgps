@@ -47,7 +47,7 @@ void cloudmadeRouterParseResponse(char* response) {
 
 	route.statusMessage[0] = '\0';
 	json_object* jobj = json_tokener_parse(response);
-	if (is_error(jobj)) {
+	if (jobj == NULL) {
 		routingStatus = PARSE_ERROR;
 		return;
 	}

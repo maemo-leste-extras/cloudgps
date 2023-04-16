@@ -55,7 +55,7 @@ void google_parse_response(char* response) {
 	size_t length;
 	int i;
 	json_object * jobj = json_tokener_parse(response);
-	if (is_error(jobj)) {
+	if (jobj == NULL) {
 		searchResultsStatus = PARSE_ERROR;
 		return;
 	}

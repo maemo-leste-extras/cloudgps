@@ -16,7 +16,6 @@
 
 #include <stdlib.h>
 #include <json-c/json.h>
-#include <json-c/json_object_private.h>
 
 #include "../main.h"
 #include "geocoder.h"

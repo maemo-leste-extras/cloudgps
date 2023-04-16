@@ -45,7 +45,7 @@ void cloudmade_parse_response(char* response) {
 	int i;
 
 	json_object * jobj = json_tokener_parse(response);
-	if (is_error(jobj)) {
+	if (jobj == NULL) {
 		searchResultsStatus = PARSE_ERROR;
 		return;
 	}

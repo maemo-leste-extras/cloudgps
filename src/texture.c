@@ -103,7 +103,7 @@ GHashTable* textureSizeHashTable = NULL;
 volatile long allocatedTexturesSize = 0;
 
 void deleteTexture(GLuint texture) {
-	int textureSize = (int) g_hash_table_lookup(textureSizeHashTable, (gpointer)texture);
+	uintptr_t textureSize = (uintptr_t)g_hash_table_lookup(textureSizeHashTable, (gconstpointer)(uintptr_t)texture);
 	//	fprintf(stderr, "delete texture %d, size = %d, allocated total = %ld\n", texture, textureSize, allocatedTexturesSize);
 	glDeleteTextures(1, &texture);
 	allocatedTexturesSize -= textureSize;
@@ -123,7 +123,7 @@ GLuint createTexture(const GLushort * pixels4444, int w, int h, int isTile) {
 	glGenTextures(1, &texture);
 
 	if (isTile) {
-		g_hash_table_insert(textureSizeHashTable, (gpointer)texture, (gpointer)(w * h * 2));
+		g_hash_table_insert(textureSizeHashTable, (gpointer)(uintptr_t)texture, (gpointer)(uintptr_t)(w * h * 2));
 		allocatedTexturesSize += w * h * 2;
 		//		fprintf(stderr, "create texture %d, size = %d, allocated total = %ld\n", texture, w*h*2, allocatedTexturesSize);
 	}

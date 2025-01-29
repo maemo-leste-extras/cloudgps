@@ -110,14 +110,6 @@ void resetQuadStripVertices() {
 	memset(quadStripVertices, 0, 12 * sizeof(GLfloat));
 }
 
-void setQuadTriangleSize(GLfloat w, GLfloat h, GLfloat quad[12]) {
-	quad[3] = w;
-	quad[7] = h;
-	quad[9] = w;
-	quad[10] = h;
-	quad[12] = w;
-	quad[16] = h;
-}
 void setQuadStripSize(GLfloat w, GLfloat h, GLfloat quad[12]) {
 	quad[3] = w;
 	quad[7] = h;

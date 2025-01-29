@@ -1,3 +1,9 @@
+cloudgps (0.6.2) unstable; urgency=low
+
+  * Daedalus port; fixes some compilation errors
+
+ -- Merlijn Wajer <merlijn@wizzup.org>  Wed, 29 Jan 2025 19:17:48 +0100
+
 cloudgps (0.6.1) unstable; urgency=low
 
   * Chimaera port; fixes all known compilation errors

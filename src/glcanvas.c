@@ -1164,7 +1164,7 @@ int initGL(GLvoid) {
 	SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
 	surface = SDL_SetVideoMode(SCREEN_WIDTH, SCREEN_HEIGHT, 16, SDL_OPENGLES | SDL_FULLSCREEN);
 #else
-	surface = SDL_SetVideoMode(SCREEN_WIDTH, SCREEN_HEIGHT, 16, SDL_OPENGL);
+	surface = SDL_SetVideoMode(960, 460, 16, SDL_SWSURFACE);
 #endif
 	if (surface == NULL) {
 		fprintf(stderr, "Couldn't set GL mode: %s\n", SDL_GetError());

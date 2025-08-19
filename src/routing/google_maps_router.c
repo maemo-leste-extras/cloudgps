@@ -16,7 +16,7 @@
 //#define GOOGLE_ROUTING_URL "http://maps.googleapis.com/maps/api/directions/json?&origin=loc:%f,%f&destination=loc:%f,%f&sensor=true"
 #define GOOGLE_ROUTING_URL "http://router.project-osrm.org/route/v1/driving/%f,%f;%f,%f?steps=true&geometries=polyline"
 GArray* decodePolyline(const char* encoded) {
-printf("test pre-5: %s\n", "ok");
+//printf("test pre-5: %s\n", "ok");
 	int len = strlen(encoded);
 	int index = 0;
 	GArray* array = g_array_new(FALSE, FALSE, sizeof(WorldCoordinate));
@@ -24,7 +24,7 @@ printf("test pre-5: %s\n", "ok");
 		fprintf(stderr, "Memory allocation error in decodeLine\n");
 		exit(1);
 	}
-	printf("debug test 5: %s\n", "ok");
+//	printf("debug test 5: %s\n", "ok");
 	WorldCoordinate wc;
 	wc.latitude = 0.0;
 	wc.longitude = 0.0;
@@ -130,7 +130,7 @@ void googleMapsRouterParseResponse(char* response) {
 		json_object* json_steps = json_object_object_get(json_leg, KEY_STEPS);
 		length = json_object_array_length(json_steps);
 
-		printf("debug test 1: %s\n", "ok");
+//		printf("debug test 1: %s\n", "ok");
 		route.directions = g_array_sized_new(FALSE, FALSE, sizeof(RouteDirection), length);
 
 		int position = 0;
@@ -138,11 +138,11 @@ void googleMapsRouterParseResponse(char* response) {
 			json_object* json_step = json_object_array_get_idx(json_steps, i);
 			RouteDirection* direction = calloc(1, sizeof(RouteDirection));
 			direction -> metersFromStart = metersFromStart;
-		printf("debug test 2: %s\n", "ok");
+//		printf("debug test 2: %s\n", "ok");
 			//direction -> polyLine = decodePolyline(json_object_get_string(json_object_object_get(json_object_object_get(json_step, KEY_POLYLINE), KEY_POINTS)));
 //parsing is a bit different from osrm response:
 			direction -> polyLine = decodePolyline(json_object_get_string(json_object_object_get(json_step, "geometry")));
-		printf("debug test 2-2: %s\n", "ok");
+//		printf("debug test 2-2: %s\n", "ok");
 			direction -> text = calloc(300, sizeof(char));
 //			ascifyAndStripTags((char *) json_object_get_string(json_object_object_get(json_step, KEY_HTML_INSTRUCTIONS)), direction -> text);
 			//TODO new instructions parsing must be improved
@@ -159,10 +159,10 @@ void googleMapsRouterParseResponse(char* response) {
 	} else {
 		routingStatus = ZERO_RESULTS;
 		json_object* status = json_object_object_get(jobj, KEY_STATUS);
-		printf("debug test 3: %s\n", "ok");
+//		printf("debug test 3: %s\n", "ok");
 		if (status != NULL) {
 			strcpy(route.statusMessage, json_object_get_string(status)) ;
-		printf("debug test 4: %s\n", "ok");
+//		printf("debug test 4: %s\n", "ok");
 		}
 	}
 }

@@ -439,7 +439,7 @@ void renderMarkerShadows(int count) {
 }
 
 void renderMarkers(int start, int count, GLuint mask, GLuint texture) {
-glEnable(GL_TEXTURE_2D);
+//glEnable(GL_TEXTURE_2D);
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_DST_COLOR, GL_ZERO);
 	glTexCoordPointer(2, GL_FLOAT, 0, &quadTextureCoords[VERTICES_PER_QUAD * start * 2]);

@@ -179,7 +179,7 @@ void setQuitFlag();
 
 void loadUI() {
 
-glPixelStorei(GL_UNPACK_ALIGNMENT, 2);
+//glPixelStorei(GL_UNPACK_ALIGNMENT, 2);
 
 	loadTextureAndMask("/usr/share/cloudgps/res/font-medium.png", &fontMedium, &fontMediumMask);
 

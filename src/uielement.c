@@ -178,6 +178,9 @@ void drawUiElement(UiElement* elem) {
 void setQuitFlag();
 
 void loadUI() {
+
+glPixelStorei(GL_UNPACK_ALIGNMENT, 2);
+
 	loadTextureAndMask("/usr/share/cloudgps/res/font-medium.png", &fontMedium, &fontMediumMask);
 
 	zoomOut = createUiElement("/usr/share/cloudgps/res/zoom-minus.png", 50, SCREEN_HEIGHT - 150, SCREEN_WIDTH - 150, SCREEN_HEIGHT - 50, &tileEngineZoomOut, &tileEngineZoomOut, TRUE);
@@ -623,10 +626,10 @@ void drawNavigationInstruction(Orientation orientation) {
 		textWidth = textWidth2;
 	}
 	glDisable(GL_TEXTURE_2D);
-	setBoxSize(textWidth + 40, 40, boxVertices);
+	setBoxSize(textWidth + 0, 80, boxVertices);
 	glPushMatrix();
 	if (orientation == LANDSCAPE) {
-		glTranslatef(SCREEN_WIDTH / 2 - textWidth / 2 - 100, 40, 0);
+		glTranslatef(SCREEN_WIDTH / 2 - textWidth / 2 - 100, 80, 0);
 	} else {
 		glTranslatef(SCREEN_HEIGHT / 2 - textWidth / 2 - 30, 55, 0);
 	}
@@ -946,9 +949,11 @@ void updateUi() {
 
 #ifdef N900
 	if (device && device -> fix) {
-		if (device -> fix -> fields | LOCATION_GPS_DEVICE_LATLONG_SET) {
+//	if (device -> fix -> fields | LOCATION_GPS_DEVICE_LATLONG_SET) {
+		if (device -> satellites_in_use > 5 && device -> fix -> fields | LOCATION_GPS_DEVICE_LATLONG_SET) {
 #endif
-	position -> status = UI_SHOWN;
+//printf("fix latlong: %u\n", LOCATION_GPS_DEVICE_LATLONG_SET);
+	position -> status = UI_SHOWN; //problem here: status is always UI_SHOWN
 #ifdef N900
 	canvas.currentPos.latitude = device -> fix -> latitude;
 	canvas.currentPos.longitude = device -> fix -> longitude;

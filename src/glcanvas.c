@@ -439,6 +439,7 @@ void renderMarkerShadows(int count) {
 }
 
 void renderMarkers(int start, int count, GLuint mask, GLuint texture) {
+glEnable(GL_TEXTURE_2D);
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_DST_COLOR, GL_ZERO);
 	glTexCoordPointer(2, GL_FLOAT, 0, &quadTextureCoords[VERTICES_PER_QUAD * start * 2]);
@@ -1154,7 +1155,7 @@ int initGL(GLvoid) {
 
 
 #if defined(N900)
-	surface = SDL_SetVideoMode(0, 0, 16, SDL_FULLSCREEN);
+	surface = SDL_SetVideoMode(800, 400, 16, SDL_SWSURFACE);
 	SCREEN_WIDTH = surface->w;
 	SCREEN_HEIGHT = surface->h;
 #elif defined(N950)
@@ -1606,9 +1607,10 @@ void drawGLScene() {
 	drawTiles();
 	drawBuildings();
 
+//printf("position status: %u\n", position -> status);
 	if (position -> status != UI_HIDDEN) {
 		// Current position
-		drawUiElement(position);
+		drawUiElement(position); //that brakes marker and route rendering
 		drawMovementDirectionArrow();
 	}
 

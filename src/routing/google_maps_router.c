@@ -13,9 +13,10 @@
 
 #include "google_maps_router.h"
 
-//http://maps.googleapis.com/maps/api/directions/xml?&destination=loc:50,20&waypoints=loc:50,21&sensor=false
-#define GOOGLE_ROUTING_URL "http://maps.googleapis.com/maps/api/directions/json?&origin=loc:%f,%f&destination=loc:%f,%f&sensor=true"
+//#define GOOGLE_ROUTING_URL "http://maps.googleapis.com/maps/api/directions/json?&origin=loc:%f,%f&destination=loc:%f,%f&sensor=true"
+#define GOOGLE_ROUTING_URL "http://router.project-osrm.org/route/v1/driving/%f,%f;%f,%f?steps=true&geometries=polyline"
 GArray* decodePolyline(const char* encoded) {
+//printf("test pre-5: %s\n", "ok");
 	int len = strlen(encoded);
 	int index = 0;
 	GArray* array = g_array_new(FALSE, FALSE, sizeof(WorldCoordinate));
@@ -23,6 +24,7 @@ GArray* decodePolyline(const char* encoded) {
 		fprintf(stderr, "Memory allocation error in decodeLine\n");
 		exit(1);
 	}
+//	printf("debug test 5: %s\n", "ok");
 	WorldCoordinate wc;
 	wc.latitude = 0.0;
 	wc.longitude = 0.0;
@@ -76,7 +78,7 @@ void testDecodeLine() {
 
 char* googleMapsRouterPrepareUrl(RoutingQuery* query) {
 	char* url;
-	if (asprintf(&url, GOOGLE_ROUTING_URL, query -> start.latitude, query -> start.longitude, query -> end.latitude, query -> end.longitude) < 0) {
+	if (asprintf(&url, GOOGLE_ROUTING_URL, query -> start.longitude, query -> start.latitude, query -> end.longitude, query -> end.latitude) < 0) {
 		fprintf(stderr, "asprintf failed in googleMapsRouterPrepareUrl\n");
 		return NULL;
 	}
@@ -87,11 +89,11 @@ char* googleMapsRouterPrepareUrl(RoutingQuery* query) {
 #define KEY_LEGS "legs"
 #define KEY_STEPS "steps"
 #define KEY_DISTANCE "distance"
-#define KEY_VALUE "value"
-#define KEY_POLYLINE "polyline"
-#define KEY_POINTS "points"
-#define KEY_HTML_INSTRUCTIONS "html_instructions"
-#define KEY_STATUS "status"
+#define KEY_VALUE "test"
+#define KEY_POLYLINE "waypoints"
+#define KEY_POINTS "hint"
+#define KEY_HTML_INSTRUCTIONS "maneuver"
+#define KEY_STATUS "code"
 
 void googleMapsRouterParseResponse(char* response) {
 	//	fprintf(stderr, "%s", response);
@@ -119,11 +121,16 @@ void googleMapsRouterParseResponse(char* response) {
 		// Assuming that Google always returns one leg
 		json_object* json_leg = json_object_array_get_idx(json_legs, 0);
 
-		route.lengthMeters = json_object_get_int(json_object_object_get(json_object_object_get(json_leg, KEY_DISTANCE), KEY_VALUE));
+		//calculate total distance:
+		json_object* stepgoo_distance = json_object_object_get(json_leg, "distance");
+                route.lengthMeters += json_object_get_int(stepgoo_distance); 
+
+//		route.lengthMeters = json_object_get_int(json_object_object_get(json_object_object_get(json_leg, KEY_DISTANCE), KEY_VALUE));
 
 		json_object* json_steps = json_object_object_get(json_leg, KEY_STEPS);
 		length = json_object_array_length(json_steps);
 
+//		printf("debug test 1: %s\n", "ok");
 		route.directions = g_array_sized_new(FALSE, FALSE, sizeof(RouteDirection), length);
 
 		int position = 0;
@@ -131,10 +138,19 @@ void googleMapsRouterParseResponse(char* response) {
 			json_object* json_step = json_object_array_get_idx(json_steps, i);
 			RouteDirection* direction = calloc(1, sizeof(RouteDirection));
 			direction -> metersFromStart = metersFromStart;
-			direction -> polyLine = decodePolyline(json_object_get_string(json_object_object_get(json_object_object_get(json_step, KEY_POLYLINE), KEY_POINTS)));
+//		printf("debug test 2: %s\n", "ok");
+			//direction -> polyLine = decodePolyline(json_object_get_string(json_object_object_get(json_object_object_get(json_step, KEY_POLYLINE), KEY_POINTS)));
+//parsing is a bit different from osrm response:
+			direction -> polyLine = decodePolyline(json_object_get_string(json_object_object_get(json_step, "geometry")));
+//		printf("debug test 2-2: %s\n", "ok");
 			direction -> text = calloc(300, sizeof(char));
-			ascifyAndStripTags((char *) json_object_get_string(json_object_object_get(json_step, KEY_HTML_INSTRUCTIONS)), direction -> text);
-			metersFromStart += json_object_get_int(json_object_object_get(json_object_object_get(json_step, KEY_DISTANCE), KEY_VALUE));
+//			ascifyAndStripTags((char *) json_object_get_string(json_object_object_get(json_step, KEY_HTML_INSTRUCTIONS)), direction -> text);
+			//TODO new instructions parsing must be improved
+			ascifyAndStripTags((char*) json_object_get_string(json_object_object_get(json_step, "maneuver")), direction -> text);
+
+//			metersFromStart += json_object_get_int(json_object_object_get(json_object_object_get(json_step, KEY_DISTANCE), KEY_VALUE));
+//			current distance parsing with osrm:
+			metersFromStart += json_object_get_int(json_object_object_get(json_step, "distance"));
 			direction -> position = position;
 			position += direction -> polyLine -> len - 1;
 			route.directions = g_array_append_vals(route.directions, direction, 1);
@@ -143,8 +159,10 @@ void googleMapsRouterParseResponse(char* response) {
 	} else {
 		routingStatus = ZERO_RESULTS;
 		json_object* status = json_object_object_get(jobj, KEY_STATUS);
+//		printf("debug test 3: %s\n", "ok");
 		if (status != NULL) {
 			strcpy(route.statusMessage, json_object_get_string(status)) ;
+//		printf("debug test 4: %s\n", "ok");
 		}
 	}
 }

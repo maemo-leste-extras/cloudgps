@@ -17,6 +17,6 @@ void readGoogleWorldCoordinate(json_object * jobj, WorldCoordinate *wc) {
 }
 
 void readCloudmadeWorldCoordinate(json_object * jobj, WorldCoordinate *wc) {
-	wc -> latitude = json_object_get_double(json_object_array_get_idx(jobj, 0));
-	wc -> longitude = json_object_get_double(json_object_array_get_idx(jobj, 1));
+	wc -> latitude = json_object_get_double(json_object_array_get_idx(jobj, 1));
+	wc -> longitude = json_object_get_double(json_object_array_get_idx(jobj, 0));
 }

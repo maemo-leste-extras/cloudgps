@@ -14,15 +14,16 @@
 #include "cloudmade_geocoder.h"
 
 #define KEY_FEATURES "features"
-#define KEY_CENTROID "centroid"
+#define KEY_CENTROID "geometry"
 #define KEY_COORDINATES "coordinates"
-#define KEY_BOUNDS "bounds"
+//#define KEY_BOUNDS "bounds"
 #define KEY_PROPERTIES "properties"
-#define KEY_NAME "name"
+#define KEY_NAME "label"
 #define KEY_IS_IN "is_in"
-#define KEY_WIKIPEDIA "Wikipedia"
+#define KEY_WIKIPEDIA "display_name"
 
-#define CLOUDMADE_QUERY_URL "http://geocoding.cloudmade.com/e4b1777b4b5154d69dbfc4678216183a/geocoding/v2/find.js?query=%s&return_location=true"
+//#define CLOUDMADE_QUERY_URL "http://geocoding.cloudmade.com/e4b1777b4b5154d69dbfc4678216183a/geocoding/v2/find.js?query=%s&return_location=true"
+#define CLOUDMADE_QUERY_URL "https://nominatim.openstreetmap.org/search?q=%s&format=geojson"
 char* cloudmade_prepare_url(char* encodedQuery) {
 	char* url;
 	if (asprintf(&url, CLOUDMADE_QUERY_URL, encodedQuery) < 0) {
@@ -31,6 +32,12 @@ char* cloudmade_prepare_url(char* encodedQuery) {
 	}
 	return url;
 }
+
+// Function to print each element of the GList
+//void print_glist_item(gpointer data, gpointer user_data) {
+    // Cast data to the expected type and print
+//    printf("%s\n", (char *)data);
+//}
 
 // features ->
 //             centroid -> coordinates -> array[2] -> double
@@ -49,24 +56,31 @@ void cloudmade_parse_response(char* response) {
 		searchResultsStatus = PARSE_ERROR;
 		return;
 	}
+
 	json_object * features = json_object_object_get(jobj, KEY_FEATURES);
 	if (features != NULL) {
 		length = json_object_array_length(features);
 		for (i = 0; i < length; i++) {
 			json_object * feature = json_object_array_get_idx(features, i);
 			GeoCodeResult * result = calloc(1, sizeof(GeoCodeResult));
-			readCloudmadeWorldCoordinate(json_object_object_get(json_object_object_get(feature, KEY_CENTROID), KEY_COORDINATES), &result -> centroid);
-			readCloudmadeWorldCoordinate(json_object_array_get_idx(json_object_object_get(feature, KEY_BOUNDS), 0), &result -> bounds[0]);
-			readCloudmadeWorldCoordinate(json_object_array_get_idx(json_object_object_get(feature, KEY_BOUNDS), 1), &result -> bounds[1]);
-			json_object *properties = json_object_object_get(feature, KEY_PROPERTIES);
+			readCloudmadeWorldCoordinate(json_object_object_get(json_object_object_get(feature, "geometry"), "coordinates"), &result -> centroid);
+//			readCloudmadeWorldCoordinate(json_object_array_get_idx(json_object_object_get(feature, "bbox"), 0), &result -> bounds[0]);
+//			readCloudmadeWorldCoordinate(json_object_array_get_idx(json_object_object_get(feature, "bbox"), 1), &result -> bounds[1]);
+			json_object *properties = json_object_object_get(feature, "properties");
 			result -> name = calloc(300, sizeof(char));
-			ascifyAndStripTags((char*) json_object_get_string(json_object_object_get(properties, KEY_NAME)), (char*)result -> name);
+			ascifyAndStripTags((char*) json_object_get_string(json_object_object_get(properties, "name")), (char*)result -> name);
 			result -> description = calloc(300, sizeof(char));
-			ascifyAndStripTags((char*) json_object_get_string(json_object_object_get(properties, KEY_IS_IN)), (char*)result -> description);
-			result -> wikipedia = json_object_get_string(json_object_object_get(properties, KEY_WIKIPEDIA));
+			ascifyAndStripTags((char*) json_object_get_string(json_object_object_get(properties, "display_name")), (char*)result -> description);
+//			result -> wikipedia = json_object_get_string(json_object_object_get(properties, KEY_WIKIPEDIA));
 
-			//                    fprintf(stderr, "Name: '%s' Description: '%s', center: %f, %f, Wikipedia: '%s'\n", result -> name, result -> description, result -> centroid.latitude, result -> centroid.longitude, result-> wikipedia == NULL ? "null": result -> wikipedia);
-			geocodingResults = g_list_append(geocodingResults, result);
+geocodingResults = g_list_append(geocodingResults, result);
+
+//for (GList *l = geocodingResults; l != NULL; l = l->next) {
+//	const char *json_test = (const char *)l->data;
+//	printf("Result: %s\n", json_test);
+//}
+
+
 		}
 		searchResultsStatus = RESULTS_READY;
 	} else {

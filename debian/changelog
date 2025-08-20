@@ -1,3 +1,11 @@
+cloudgps (0.6.3) unstable; urgency=low
+
+  * Daedalus port; various changes to get routing, geocoding and markers to work again.
+
+  * Force window mode to avoid fullscreen crash (temporary fix)
+
+-- Arno1103 <arno11-n900@outlook.com>  Wed, 20 Aug 2025 21:53:18 +0100
+
 cloudgps (0.6.2) unstable; urgency=low
 
   * Daedalus port; fixes some compilation errors

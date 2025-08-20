@@ -1,0 +1,17 @@
+# This action script just calls the reusable entry point on
+# https://git.maemo.org/leste-cicd/forgejo-workflows in .forgejo/workflows/maemo-entry.yml
+# Because of limitations in Forgejo Actions at the time of writing, our custom
+# Forgejo build will replace any workflow called "build.yml" with the contents of
+# the reusable workflow.
+#
+# So technically, the contents of this file do not matter at all, it doesn't
+# even have to be syntactically correct, but let's just try to make it correct.
+#
+# For the Forgejo lacking features / bugs refer to
+# https://codeberg.org/forgejo/forgejo/issues/8780
+
+on: [push]
+
+jobs:
+  call-reusable-workflow:
+    uses: leste-cicd/forgejo-workflows/.forgejo/workflows/maemo-entry.yml@master

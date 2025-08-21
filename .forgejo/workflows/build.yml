@@ -10,7 +10,9 @@
 # For the Forgejo lacking features / bugs refer to
 # https://codeberg.org/forgejo/forgejo/issues/8780
 
-on: [push]
+on:
+  push:
+  pull_request:
 
 jobs:
   call-reusable-workflow:

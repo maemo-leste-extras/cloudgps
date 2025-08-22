@@ -13,7 +13,6 @@
 
 #include "../main.h"
 
-void readGoogleWorldCoordinate(json_object * jobj, WorldCoordinate *wc);
 void readCloudmadeWorldCoordinate(json_object * jobj, WorldCoordinate *wc);
 
 #endif /* COORDINATE_READER_H_ */

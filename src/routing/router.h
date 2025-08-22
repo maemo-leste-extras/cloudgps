@@ -21,7 +21,6 @@
 #include "../unicode2ascii.h"
 
 #include "google_maps_router.h"
-#include "cloudmade_router.h"
 
 void initRoutingProviders();
 void loadRoute(RoutingQuery* query);

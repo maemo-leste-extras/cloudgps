@@ -23,12 +23,11 @@ GList* routingProviders = NULL;
 
 void initRoutingProviders() {
 	BackgroundQueryProvider* p;
-	p = calloc(1, sizeof(BackgroundQueryProvider));
-
-	p -> name = "CloudMade";
-	p -> parseResponse = &cloudmadeRouterParseResponse;
-	p -> prepareUrl = (prepare_url_t)&cloudmadeRouterPrepareUrl;
-	routingProviders = g_list_append(routingProviders, p);
+	//p = calloc(1, sizeof(BackgroundQueryProvider));
+	//p -> name = "CloudMade";
+	//p -> parseResponse = &cloudmadeRouterParseResponse;
+	//p -> prepareUrl = (prepare_url_t)&cloudmadeRouterPrepareUrl;
+	//routingProviders = g_list_append(routingProviders, p);
 
 	p = calloc(1, sizeof(BackgroundQueryProvider));
 	p -> name = "Google";

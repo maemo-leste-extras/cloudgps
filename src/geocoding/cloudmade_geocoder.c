@@ -47,7 +47,6 @@ char* cloudmade_prepare_url(char* encodedQuery) {
 //                            is_in
 
 void cloudmade_parse_response(char* response) {
-	// fprintf(stderr, "%s\n", json_string);
 	size_t length;
 	int i;
 

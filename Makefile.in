@@ -13,7 +13,7 @@ SOURCES = src/main.c src/tile.c src/tileengine.c src/glunproject.c src/file.c sr
 src/console.c src/screen.c src/network.c \
 src/geocoding/geocoder.c src/geocoding/cloudmade_geocoder.c \
 src/geocoding/coordinate_reader.c \
-src/routing/router.c src/routing/google_maps_router.c src/routing/cloudmade_router.c\
+src/routing/router.c src/routing/google_maps_router.c \
 src/markerIterator.c src/navigation/navigation.c src/unicode2ascii.c src/geometry.c
 
 OBJS = $(SOURCES:%.c=%.o)

@@ -16,8 +16,8 @@
 
 #include "geocoder.h"
 #include "cloudmade_geocoder.h"
-#include "google_geocoder.h"
-#include "google_maps_geocoder.h"
+//#include "google_geocoder.h"
+//#include "google_maps_geocoder.h"
 #include "geocoder.h"
 
 volatile BackgroundQueryStatus searchResultsStatus = NO_QUERY;
@@ -39,7 +39,7 @@ void initGeocodingProviders() {
 	p -> parseResponse = &cloudmade_parse_response;
 	p -> prepareUrl = (prepare_url_t)&cloudmade_prepare_url;
 	geocodingProviders = g_list_append(geocodingProviders, p);
-
+#if 0
 	p = calloc(1, sizeof(BackgroundQueryProvider));
 	p -> name = "Google (address only)";
 	p -> parseResponse = &google_parse_response;
@@ -57,6 +57,7 @@ void initGeocodingProviders() {
 	p -> parseResponse = &google_maps_parse_response;
 	p -> prepareUrl = (prepare_url_t)&google_maps_local_prepare_url;
 	geocodingProviders = g_list_append(geocodingProviders, p);
+#endif
 }
 
 /* to_hex and url_encode taken from: http://www.geekhideout.com/urlcode.shtml */

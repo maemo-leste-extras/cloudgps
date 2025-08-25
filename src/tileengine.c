@@ -1785,7 +1785,7 @@ void tileEngineZoomOut() {
 }
 
 void tileEngineGotomypos() {
-	if (device -> satellites_in_use > 5 && mouse.oldButton == 0) {
+	if (device -> satellites_in_use > 2 && mouse.oldButton == 0) {
 		canvas.followingMypos = 1 - canvas.followingMypos;
 		canvas.attractionZooming = 0;
 		canvas.routeFlybyMode = 0;

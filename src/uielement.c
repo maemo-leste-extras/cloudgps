@@ -950,7 +950,7 @@ void updateUi() {
 #ifdef N900
 	if (device && device -> fix) {
 //	if (device -> fix -> fields | LOCATION_GPS_DEVICE_LATLONG_SET) {
-		if (device -> satellites_in_use > 5 && device -> fix -> fields | LOCATION_GPS_DEVICE_LATLONG_SET) {
+		if (device -> satellites_in_use > 2 && device -> fix -> fields | LOCATION_GPS_DEVICE_LATLONG_SET) {
 #endif
 //printf("fix latlong: %u\n", LOCATION_GPS_DEVICE_LATLONG_SET);
 	position -> status = UI_SHOWN; //problem here: status is always UI_SHOWN

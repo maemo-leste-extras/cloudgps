@@ -19,7 +19,7 @@ extern SearchBar searchBar;
 extern Mouse mouse;
 extern long nowMillis;
 extern int downloaded;
-extern int batteryPercentage;
+extern gdouble batteryPercentage;
 extern GLfloat fps;
 
 GList* uiElems = NULL;
@@ -859,7 +859,7 @@ void drawStatusBar(Orientation orientation) {
 		glTranslatef(120, 0, 0);
 	}
 
-	sprintf(strbuf, "Battery: %d%%", batteryPercentage);
+	sprintf(strbuf, "Battery: %d%%", (int)batteryPercentage);
 	drawString(strbuf, 1.0, 1.0, 1.0, FALSE);
 
 	if (orientation == LANDSCAPE) {

@@ -10,53 +10,40 @@
  *
  * Author: Damian Waradzyn
  */
-#if 0
-#include <hal/libhal.h>
 
-LibHalContext *libHalCtx;
-char* udi;
-DBusError dbusError;
-#endif
+extern gdouble batteryPercentage;
+extern UpClient *battery_client;
+extern UpDevice *battery;
+
+void cleanupBattery() {
+    if (battery)
+        g_object_unref(battery);
+
+    if (battery_client)
+        g_object_unref(battery_client);
+}
 
 void refreshBattery() {
-    batteryPercentage = 42;
-#if 0
-    batteryPercentage = libhal_device_get_property_int(libHalCtx, udi, "battery.charge_level.percentage", &dbusError);
-#endif
+    if (battery)
+        g_object_get(battery, "percentage", &batteryPercentage, NULL);
+    else
+        batteryPercentage = 42;
 }
 
 void initBattery() {
-#if 0
-    DBusConnection *conn;
-    dbus_error_init(&dbusError);
-    conn = dbus_bus_get(DBUS_BUS_SYSTEM, &dbusError);
-    if (!conn) {
-        fprintf(stderr, "unable to init dbus: %s\n", dbusError.message);
-        dbus_error_free(&dbusError);
-        return;
-    }
-    libHalCtx = libhal_ctx_new();
-    if (!libhal_ctx_set_dbus_connection(libHalCtx, conn)) {
-        fprintf(stderr, "unable to init HAL context with DBus\n");
+    battery_client = up_client_new();
+    if (!battery_client) {
+        fprintf(stderr, "could not connect to UPower for battery data");
         return;
     }
 
-    if (!libhal_ctx_init(libHalCtx, &dbusError)) {
-        fprintf(stderr, "unable to init HAL context: %s\n", dbusError.message);
-        dbus_error_free(&dbusError);
+    /* Use UPower's DisplayDevice for simplicity */
+    battery = up_client_get_display_device(battery_client);
+    if (!battery) {
+        fprintf(stderr, "could not get battery data from UPower");
+        return;
     }
-    int num_devices;
-    char **devices = libhal_find_device_by_capability(libHalCtx, "battery", &num_devices, &dbusError);
-    if (devices) {
-        if (num_devices > 1) {
-            fprintf(stderr, "%d batteries found", num_devices);
-        }
-        udi = devices[0];
-    } else {
-        fprintf(stderr, "unable to find devices by battery capability: %s\n", dbusError.message);
-        dbus_error_free(&dbusError);
-    }
+
     refreshBattery();
-#endif
 }
 

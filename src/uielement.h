@@ -16,6 +16,6 @@
 
 UiElement* getPressedUiElem();
 extern UiElement *crosshair, *zoomIn, *zoomOut, *position, *gotomypos, *view2d,
-		*view3d, *compass, *search, *zoomKnot, *closeApp, *tasks;
+		*view3d, *compass, *search, *zoomKnot;
 
 #endif /* UIELEMENT_H_ */

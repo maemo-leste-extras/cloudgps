@@ -27,7 +27,7 @@ GList* uiElems = NULL;
 static UiElement* pressedUiElem = NULL;
 
 UiElement *crosshair, *zoomIn, *zoomOut, *position, *gotomypos, *view2d, *view3d,
-          *compass, *search, *zoomKnot, *closeApp, *tasks, *busy;
+          *compass, *search, *zoomKnot, *busy;
 extern Texture searchMarkTexture, searchMarkMask, road;
 
 // those need updating on portrait/landscape change.
@@ -197,11 +197,11 @@ void loadUI() {
 	zoomKnot = createUiElement("/usr/share/cloudgps/res/zoom-knot.png", SCREEN_WIDTH - 150, SCREEN_HEIGHT - 50, SCREEN_WIDTH - 50, 150, &tileEngineZoomKnotPressed, &tileEngineZoomKnotDragged, TRUE);
 	zoomKnot -> status = UI_HIDDEN;
 
-	tasks = createUiElement("/usr/share/cloudgps/res/tasks.png", 16, 0, 0, 0, &invokeTaskManager, NULL, TRUE);
-	tasks -> status = UI_HIDDEN;
+//	tasks = createUiElement("/usr/share/cloudgps/res/tasks.png", 16, 0, 0, 0, &invokeTaskManager, NULL, TRUE);
+//	tasks -> status = UI_HIDDEN;
 
-	closeApp = createUiElement("/usr/share/cloudgps/res/close.png", SCREEN_WIDTH - 64, 32, 32, 32, &setQuitFlag, NULL, TRUE);
-	closeApp -> status = UI_HIDDEN;
+//	closeApp = createUiElement("/usr/share/cloudgps/res/close.png", SCREEN_WIDTH - 64, 32, 32, 32, &setQuitFlag, NULL, TRUE);
+//	closeApp -> status = UI_HIDDEN;
 
 	busy = createUiElement("/usr/share/cloudgps/res/busy.png", SCREEN_WIDTH - 96, 32, 32, 32, NULL, NULL, TRUE);
 	busy -> status = UI_HIDDEN;
@@ -758,13 +758,13 @@ void drawStatusBar(Orientation orientation) {
 	glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
 
 	if (orientation == LANDSCAPE) {
-		tasks -> x = 16;
-		tasks -> y = 0;
-		drawUiElement(tasks);
+//		tasks -> x = 16;
+//		tasks -> y = 0;
+//		drawUiElement(tasks);
 
-		closeApp -> x = SCREEN_WIDTH - 80;
-		closeApp -> y = 0;
-		drawUiElement(closeApp);
+//		closeApp -> x = SCREEN_WIDTH - 80;
+//		closeApp -> y = 0;
+//		drawUiElement(closeApp);
 
 		if (canvas.busy) {
 			busy -> x = SCREEN_WIDTH - 90;
@@ -890,10 +890,10 @@ int processUiMouse() {
 	}
 	int result = FALSE;
 
-	if (canvas.orientationTransitionLinear < 80) {
-		tasks -> status = UI_SHOWN;
-		closeApp -> status = UI_SHOWN;
-	}
+//	if (canvas.orientationTransitionLinear < 80) {
+//		tasks -> status = UI_SHOWN;
+//		closeApp -> status = UI_SHOWN;
+//	}
 
 	if (mouse.button == 1) {
 		if (mouse.oldButton == 0) {
@@ -923,8 +923,8 @@ int processUiMouse() {
 		}
 	}
 
-	tasks -> status = UI_HIDDEN;
-	closeApp -> status = UI_HIDDEN;
+//	tasks -> status = UI_HIDDEN;
+//	closeApp -> status = UI_HIDDEN;
 
 	return result;
 }

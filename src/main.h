@@ -25,6 +25,9 @@
 #include <GL/gl.h>
 #endif
 
+#include <glib.h>
+#include <upower.h>
+
 #define M_PI 3.14159265358979323846
 #define CLOUDGPS_VERION "0.5.5"
 

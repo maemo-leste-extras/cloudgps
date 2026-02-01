@@ -52,7 +52,6 @@ OptionsStruct options;
 #include "battery.c"
 #include "navigation/navigation.h"
 
-
 Canvas canvas;
 
 struct {
@@ -70,8 +69,10 @@ int tileCoordinateVisibility[TILES_X + 1][TILES_Y + 1];
 int quit = FALSE;
 long nowMillis = 0, previousMillis = 0, diffMillis = 0;
 int downloaded = 0;
-int batteryPercentage;
+gdouble batteryPercentage;
 long lastBatteryRefresh = 0, lastGarbageCollection = 0;
+UpClient *battery_client = NULL;
+UpDevice *battery = NULL;
 
 volatile int syncLoadedTilesAppearance = TRUE;
 int forceGarbageCollection = FALSE;
@@ -206,6 +207,7 @@ int main(int argc, char **argv) {
 		prevent_screen_dimming();
 	}
 	saveConfig();
+	cleanupBattery();
 //	TTF_Quit();
 	SDL_Quit();
 	return 0;

@@ -1,3 +1,11 @@
+cloudgps (0.6.6) unstable; urgency=low
+
+  * Port battery reporting to Upower.
+
+  * Remove hardcoded dimensions for window mode.
+
+ -- Arno1103 <arno11-n900@outlook.com>  Sun, 01 Feb 2026 14:50:18 +0100
+
 cloudgps (0.6.5) unstable; urgency=low
 
   * Daedalus port; cleaning code.

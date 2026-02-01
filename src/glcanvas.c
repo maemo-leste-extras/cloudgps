@@ -1155,9 +1155,25 @@ int initGL(GLvoid) {
 
 
 #if defined(N900)
-	surface = SDL_SetVideoMode(800, 400, 16, SDL_SWSURFACE);
+        const SDL_VideoInfo *info = SDL_GetVideoInfo();
+        if (!info) {
+                fprintf(stderr, "SDL_GetVideoInfo failed: %s\n", SDL_GetError());
+                exit(1);
+        }
+
+        int width = info->current_w;
+        int height = info->current_h;
+        height -= 80;
+
+	surface = SDL_SetVideoMode(width, height, 16, SDL_SWSURFACE);
+        if (!surface) {
+                fprintf(stderr, "SDL_SetVideoMode failed: %s\n", SDL_GetError());
+        exit(1);
+        }
+
 	SCREEN_WIDTH = surface->w;
 	SCREEN_HEIGHT = surface->h;
+
 #elif defined(N950)
 	fprintf(stderr, "N950 opengl init\n");
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 1);

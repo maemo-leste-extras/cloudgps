@@ -1627,7 +1627,7 @@ void drawGLScene() {
 	if (position -> status != UI_HIDDEN) {
 		// Current position
 		drawUiElement(position); //that brakes marker and route rendering
-		drawMovementDirectionArrow();
+//		drawMovementDirectionArrow();
 	}
 
 	drawRoute();

@@ -874,7 +874,7 @@ void drawStatusBar(Orientation orientation) {
 		fprintf(stderr, "error 14 %d", glerror);
 	}
 	glBindTexture(GL_TEXTURE_2D, 0);
-	drawSatelliteBars(32, 12, 6);
+//	drawSatelliteBars(32, 12, 6);
 
 	if (orientation == LANDSCAPE) {
 		glTranslatef(SCREEN_WIDTH * canvas.orientationTransition, 0, 0);

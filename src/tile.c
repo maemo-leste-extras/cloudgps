@@ -150,10 +150,12 @@ int loadTileTexture(char* filename, t_tile* tile) {
 
     if (texture) {
         SDL_Delay(0);
-        tile -> pixels4444 = texture -> pixels; //convert8888to4444(texture, TRUE);
-        //        fprintf(stderr, "loadTextureFromFile, tile= %p allocated pixels4444 %p\n", tile, tile -> pixels4444);
+   int size = texture -> pitch * texture -> h;
+tile -> pixels4444 = malloc(size);
+memcpy(tile -> pixels4444, texture -> pixels, size);
+      //        fprintf(stderr, "loadTextureFromFile, tile= %p allocated pixels4444 %p\n", tile, tile -> pixels4444);
         tile -> state = STATE_GL_TEXTURE_NOT_CREATED;
-        //SDL_FreeSurface(texture);
+        SDL_FreeSurface(texture);
         return TRUE;
     }
     return FALSE;

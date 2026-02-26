@@ -28,7 +28,7 @@
 #include "buildings3d.h"
 
 #ifdef N900
-#define DOWNLOADING_THREADS 2
+#define DOWNLOADING_THREADS 1
 #else
 #define DOWNLOADING_THREADS 4
 #endif

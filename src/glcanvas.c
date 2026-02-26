@@ -13,6 +13,7 @@
 
 #ifdef N900
 #include <SDL/SDL_gles.h>
+#include <SDL/SDL.h>
 #endif
 
 #include <SDL/SDL.h>

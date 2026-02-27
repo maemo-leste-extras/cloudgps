@@ -114,7 +114,8 @@ void deallocateTile(t_tile *tile) {
     if (ALLOC_DEBUG) {
         fprintf(stderr, "deallocateTile(%p)\n", tile);
     }
-    deleteElems(downloadQueue, (gpointer) tile);
+// suspicious (appearing twice)
+//    deleteElems(downloadQueue, (gpointer) tile);
     deleteElems(allCreatedTiles, (gpointer) tile);
 
     GLuint texture = tile->texture;

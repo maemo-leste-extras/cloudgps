@@ -3,6 +3,7 @@ Section: user/navigation
 Priority: extra
 Maintainer: Damian Waradzyn <damian.waradzyn@gmail.com>
 Build-Depends: debhelper (>= 10),
+    libglib2.0-dev,
     liblocation-dev,
     libgconf2-dev,
     libsdl1.2-dev,
@@ -12,7 +13,7 @@ Build-Depends: debhelper (>= 10),
     libsdl-ttf2.0-dev,
     libjson-c-dev,
     libc6-dev (>= 2.5.0-1),
-    libcurl4-openssl-dev | libcurl4-nss-dev | libcurl4-gnutls-dev,
+    libcurl4-openssl-dev,
     libupower-glib-dev
 Standards-Version: 4.3.0
 

@@ -7,5 +7,6 @@ on:
 enable-email-notifications: true
 
 jobs:
-  call-reusable-workflow:
+  build-packages:
     uses: leste-cicd/forgejo-workflows/.forgejo/workflows/maemo-entry.yml@master
+    secrets: inherit

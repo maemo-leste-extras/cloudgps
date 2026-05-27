@@ -139,14 +139,26 @@ void googleMapsRouterParseResponse(char* response) {
 			RouteDirection* direction = calloc(1, sizeof(RouteDirection));
 			direction -> metersFromStart = metersFromStart;
 //		printf("debug test 2: %s\n", "ok");
-			//direction -> polyLine = decodePolyline(json_object_get_string(json_object_object_get(json_object_object_get(json_step, KEY_POLYLINE), KEY_POINTS)));
-//parsing is a bit different from osrm response:
+//		parsing is a bit different from osrm response:
 			direction -> polyLine = decodePolyline(json_object_get_string(json_object_object_get(json_step, "geometry")));
 //		printf("debug test 2-2: %s\n", "ok");
 			direction -> text = calloc(300, sizeof(char));
 //			ascifyAndStripTags((char *) json_object_get_string(json_object_object_get(json_step, KEY_HTML_INSTRUCTIONS)), direction -> text);
-			//TODO new instructions parsing must be improved
-			ascifyAndStripTags((char*) json_object_get_string(json_object_object_get(json_step, "maneuver")), direction -> text);
+			//FIX new instructions parsing
+
+			struct json_object *maneuver;
+			struct json_object *jmodifier;
+			struct json_object *jtype;
+
+			char tmp[300];
+			maneuver = json_object_object_get(json_step, "maneuver");
+			jmodifier = json_object_object_get(maneuver, "modifier");
+			jtype = json_object_object_get(maneuver, "type");
+
+//			ugly box size fix
+			snprintf(tmp, sizeof(tmp), "%s %s                         ", jtype ? json_object_get_string(jtype) : "", jmodifier ? json_object_get_string(jmodifier) : "");
+
+			ascifyAndStripTags(tmp, direction->text);
 
 //			metersFromStart += json_object_get_int(json_object_object_get(json_object_object_get(json_step, KEY_DISTANCE), KEY_VALUE));
 //			current distance parsing with osrm:

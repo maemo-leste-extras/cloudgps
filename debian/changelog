@@ -1,3 +1,11 @@
+cloudgps (0.6.9) unstable; urgency=low
+
+  * Navigation instructions box size fix for osrm
+  * Fix instructions parsing for osrm
+  * Fix instructions box position in portrait mode
+
+ -- Arno1103 <arno11-n900@outlook.com>  Wed, 27 May 2026 20:23:45 +0100
+
 cloudgps (0.6.8) unstable; urgency=low
 
   * Excalibur release

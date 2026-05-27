@@ -27,7 +27,7 @@ GList* uiElems = NULL;
 static UiElement* pressedUiElem = NULL;
 
 UiElement *crosshair, *zoomIn, *zoomOut, *position, *gotomypos, *view2d, *view3d,
-          *compass, *search, *zoomKnot, *busy;
+          *compass, *search, *zoomKnot;
 extern Texture searchMarkTexture, searchMarkMask, road;
 
 // those need updating on portrait/landscape change.
@@ -107,6 +107,7 @@ void prepareQuadStripForUiElement(UiElement* elem) {
 	// Dirty hack to make position always the same size on map.
 	if (elem == position) {
 		setQuadStripSize(elem->mask.size / canvas.scale, elem->mask.size / canvas.scale, quadStripVertices);
+#if 0
 	} else if (elem == busy) {
 		setQuadStripSize(elem->mask.size, elem->mask.size, quadStripVertices);
 		int i;
@@ -115,16 +116,17 @@ void prepareQuadStripForUiElement(UiElement* elem) {
 			quadStripVertices[i * 3 + 1] -= elem->mask.size / 2;
 			rotate2d(&quadStripVertices[i * 3], &quadStripVertices[i * 3 + 1], nowMillis / 3.0);
 		}
+#endif
 	} else {
 		setQuadStripSize(elem->mask.size, elem->mask.size, quadStripVertices);
 	}
 }
 
-void afterUiElementDrawn(UiElement* elem) {
-	if (elem == busy) {
-		resetQuadStripVertices();
-	}
-}
+//void afterUiElementDrawn(UiElement* elem) {
+//	if (elem == busy) {
+//		resetQuadStripVertices();
+//	}
+//}
 
 void drawUiElement(UiElement* elem) {
 
@@ -173,7 +175,7 @@ void drawUiElement(UiElement* elem) {
 
 	glTranslatef(-elem -> x, -elem -> y, 0);
 
-	afterUiElementDrawn(elem);
+//	afterUiElementDrawn(elem);
 }
 void setQuitFlag();
 
@@ -203,8 +205,8 @@ void loadUI() {
 //	closeApp = createUiElement("/usr/share/cloudgps/res/close.png", SCREEN_WIDTH - 64, 32, 32, 32, &setQuitFlag, NULL, TRUE);
 //	closeApp -> status = UI_HIDDEN;
 
-	busy = createUiElement("/usr/share/cloudgps/res/busy.png", SCREEN_WIDTH - 96, 32, 32, 32, NULL, NULL, TRUE);
-	busy -> status = UI_HIDDEN;
+//	busy = createUiElement("/usr/share/cloudgps/res/busy.png", SCREEN_WIDTH - 96, 32, 32, 32, NULL, NULL, TRUE);
+//	busy -> status = UI_HIDDEN;
 
 	loadTextureAndMask("/usr/share/cloudgps/res/searchmark.png", &searchMarkTexture, &searchMarkMask);
 	loadTextureAndMask("/usr/share/cloudgps/res/route_start.png", &routeStartTexture, &routeStartMask);
@@ -626,12 +628,14 @@ void drawNavigationInstruction(Orientation orientation) {
 		textWidth = textWidth2;
 	}
 	glDisable(GL_TEXTURE_2D);
-	setBoxSize(textWidth + 0, 80, boxVertices);
+//box size fix for osrm
+	setBoxSize(textWidth + 40, 40, boxVertices);
 	glPushMatrix();
 	if (orientation == LANDSCAPE) {
 		glTranslatef(SCREEN_WIDTH / 2 - textWidth / 2 - 100, 80, 0);
 	} else {
-		glTranslatef(SCREEN_HEIGHT / 2 - textWidth / 2 - 30, 55, 0);
+//fix portrait box position
+		glTranslatef(SCREEN_HEIGHT / 2 - textWidth / 2 - 30, 100, 0);
 	}
 
 	glColor4f(1, 1, 1, 1);
@@ -757,6 +761,7 @@ void drawStatusBar(Orientation orientation) {
 	glVertexPointer(3, GL_FLOAT, 0, quadStripVertices);
 	glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
 
+#if 0
 	if (orientation == LANDSCAPE) {
 //		tasks -> x = 16;
 //		tasks -> y = 0;
@@ -778,6 +783,7 @@ void drawStatusBar(Orientation orientation) {
 			drawUiElement(busy);
 		}
 	}
+#endif
 
 	glTranslatef(10 + (orientation == LANDSCAPE ? 90 : 0), 5 + (orientation == LANDSCAPE ? 5 : 0), 0);
 
@@ -946,7 +952,7 @@ void updateAnimationValue(int enabled, GLfloat *value, GLfloat minValue, GLfloat
 }
 
 void updateUi() {
-
+//printf("error start updateui");
 #ifdef N900
 	if (device && device -> fix) {
 //	if (device -> fix -> fields | LOCATION_GPS_DEVICE_LATLONG_SET) {
@@ -1137,5 +1143,6 @@ canvas.arrowPosY = -1;
 		zoomKnot -> y += (canvas.zoomKnotPosition - zoomKnot -> y) / 4.0;
 		zoomKnot -> texCoords = texCoordsPortrait[0];
 	}
+//printf("error end updateui");
 }
 

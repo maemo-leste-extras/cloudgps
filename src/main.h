@@ -231,6 +231,7 @@ typedef struct {
 typedef struct {
 	RoutingQuery* query;
 	int lengthMeters;
+	int lengthMinutes;
 	GArray* directions;
 	OptimizedRoute optimizedRoute;
 	char statusMessage[500];

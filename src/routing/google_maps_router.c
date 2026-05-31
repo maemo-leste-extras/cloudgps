@@ -125,6 +125,10 @@ void googleMapsRouterParseResponse(char* response) {
 		json_object* stepgoo_distance = json_object_object_get(json_leg, "distance");
                 route.lengthMeters += json_object_get_int(stepgoo_distance); 
 
+		//calculate total duration:
+		json_object* stepgoo_duration = json_object_object_get(json_leg, "duration");
+		route.lengthMinutes += json_object_get_int(stepgoo_duration); 
+
 //		route.lengthMeters = json_object_get_int(json_object_object_get(json_object_object_get(json_leg, KEY_DISTANCE), KEY_VALUE));
 
 		json_object* json_steps = json_object_object_get(json_leg, KEY_STEPS);
@@ -139,14 +143,30 @@ void googleMapsRouterParseResponse(char* response) {
 			RouteDirection* direction = calloc(1, sizeof(RouteDirection));
 			direction -> metersFromStart = metersFromStart;
 //		printf("debug test 2: %s\n", "ok");
-			//direction -> polyLine = decodePolyline(json_object_get_string(json_object_object_get(json_object_object_get(json_step, KEY_POLYLINE), KEY_POINTS)));
-//parsing is a bit different from osrm response:
+//		parsing is a bit different from osrm response:
 			direction -> polyLine = decodePolyline(json_object_get_string(json_object_object_get(json_step, "geometry")));
 //		printf("debug test 2-2: %s\n", "ok");
 			direction -> text = calloc(300, sizeof(char));
 //			ascifyAndStripTags((char *) json_object_get_string(json_object_object_get(json_step, KEY_HTML_INSTRUCTIONS)), direction -> text);
-			//TODO new instructions parsing must be improved
-			ascifyAndStripTags((char*) json_object_get_string(json_object_object_get(json_step, "maneuver")), direction -> text);
+			//FIX new instructions parsing
+
+			struct json_object *maneuver;
+			struct json_object *jmodifier;
+			struct json_object *jtype;
+			struct json_object *jname;
+			struct json_object *jref;
+			char navtmp[550];
+
+			maneuver = json_object_object_get(json_step, "maneuver");
+			jname = json_object_object_get(json_step, "name");
+			jref = json_object_object_get(json_step, "ref");
+			jmodifier = json_object_object_get(maneuver, "modifier");
+			jtype = json_object_object_get(maneuver, "type");
+
+//			ugly box size fix
+snprintf(navtmp, sizeof(navtmp), "%s %s %s  %s", jtype ? json_object_get_string(jtype) : "", jmodifier ? json_object_get_string(jmodifier) : "", jname ? json_object_get_string(jname) : "", jref ? json_object_get_string(jref) : "");
+
+			ascifyAndStripTags(navtmp, direction->text);
 
 //			metersFromStart += json_object_get_int(json_object_object_get(json_object_object_get(json_step, KEY_DISTANCE), KEY_VALUE));
 //			current distance parsing with osrm:

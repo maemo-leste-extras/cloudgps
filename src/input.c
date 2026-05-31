@@ -147,13 +147,6 @@ void processKeyDown(SDL_KeyboardEvent key) {
 
 	if (canvas.searchBarActive == 0) {
 		switch (key.keysym.sym) {
-		case SDLK_b:
-			if (key.keysym.mod & KMOD_LSHIFT) {
-				clearBuildings();
-			} else {
-				buildings3dtest();
-			}
-			break;
 		case SDLK_g:
 			options.showGrid = 1 - options.showGrid;
 			break;

@@ -158,7 +158,7 @@ void processRouting() {
 		addConsoleLine(strbuf, 0, 1, 0);
 		break;
 	case RESULTS_READY:
-		sprintf(strbuf, "Route length %d m", route.lengthMeters);
+		sprintf(strbuf, "Route length %d m  Duration %d min", route.lengthMeters, (route.lengthMinutes / 60));
 		addConsoleLine(strbuf, 0, 1, 0);
 		tileEngineProcessNewRoute(&route);
 		break;

@@ -1,3 +1,10 @@
+cloudgps (0.7.1) unstable; urgency=low
+
+  * add name and road ref
+  * add route duration
+
+ -- Arno1103 <arno11-n900@outlook.com>  Sun, 31 May 2026 06:08:12 +0100
+
 cloudgps (0.7.0) unstable; urgency=low
 	
   * Fix app crash when clicking on key B

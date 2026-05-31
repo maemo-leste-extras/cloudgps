@@ -622,7 +622,7 @@ void drawNavigationInstruction(Orientation orientation) {
 	} else {
 		sprintf(strbuf2, "Distance to destination %d%s", meters, "m");
 	}
-	int textWidth2 = stringWidth(strbuf);
+	int textWidth2 = stringWidth(strbuf2);
 
 	if (textWidth2 > textWidth) {
 		textWidth = textWidth2;
